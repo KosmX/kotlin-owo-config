@@ -8,14 +8,17 @@ class Writer(private val builder: StringBuilder = StringBuilder()): CharSequence
     }
 
     private fun line(text: CharSequence) {
-        beginLine(text)
-        indentLevel += text.sumOf {
+        val indentChange = text.sumOf {
             when(it) {
                 '{' -> 1
                 '}' -> -1
                 else -> 0
             } as Int
         }
+        if (indentChange < 0) indentLevel += indentChange
+        beginLine(text)
+        if (indentChange > 0) indentLevel += indentChange
+
         builder.appendLine()
     }
 

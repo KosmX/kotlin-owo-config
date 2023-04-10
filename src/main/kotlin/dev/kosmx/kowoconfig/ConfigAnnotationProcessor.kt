@@ -109,9 +109,7 @@ class ConfigAnnotationProcessor(val environment: SymbolProcessorEnvironment): Sy
                 import io.wispforest.owo.util.Observable
                 import kotlin.reflect.KProperty
 
-                class ${config.wrapperName} private constructor(
-                    janksonBuilder: (Jankson.Builder) -> Unit
-                ): ConfigWrapper<${sourceName.getShortName()}>(${sourceName.getShortName()}::class.java, janksonBuilder) {
+                class ${config.wrapperName} private constructor(janksonBuilder: (Jankson.Builder) -> Unit) : ConfigWrapper<${sourceName.getShortName()}>(${sourceName.getShortName()}::class.java, janksonBuilder) {
                     private val parentKey = Option.Key.ROOT
 
                     constructor(): this({})
