@@ -19,8 +19,8 @@ class ConfigAnnotationProcessor(val environment: SymbolProcessorEnvironment): Sy
             .mapNotNull { it as? KSClassDeclaration }
             .partition { it.validate() }
 
-        environment.logger.warn("Processing ${toProcess.size} annotations.")
-        environment.logger.warn("Skipping ${delayed.size} annotations.")
+        environment.logger.info("Processing ${toProcess.size} annotations.")
+        environment.logger.info("Skipping ${delayed.size} annotations.")
         for (kClass in toProcess) {
             KConfigGenerator(kClass)()
         }

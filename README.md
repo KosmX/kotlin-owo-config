@@ -28,7 +28,7 @@ repositories {
 dependencies {
     (...)
     
-    ksp("dev.kosmx.kowoconfig:ksp-owo-config:0.0.2") // Keep it updated
+    ksp("dev.kosmx.kowoconfig:ksp-owo-config:0.1.0") // Keep it updated
 }
 ```
 ### Config model
