@@ -10,57 +10,75 @@ import io.wispforest.owo.ui.core.Color
 class UwuConfigModel {
     @SectionHeader("top")
     @RangeConstraint(min = 0.0, max = 56.0)
-    val aValue = 56
+    @JvmField
+    var aValue = 56
 
     @RegexConstraint("[A-Za-z]{1,3}")
-    val regex = "yes"
+    @JvmField
+    var regex = "yes"
 
     @Nest
     @Expanded
     @SectionHeader("nesting_yo?")
+    @JvmField
     var nestingTime = Nested()
 
-    @PredicateConstraint("predicateFunction")
+    //@PredicateConstraint("predicateFunction") predicate doesn't work without modification in OwoLib
+    @JvmField
     var someOption: List<String> = ArrayList(listOf("1", "2", "3", "4", "5"))
 
     @RangeConstraint(min = 0.0, max = 10.0, decimalPlaces = 1)
+    @JvmField
     var floting = 6.9f
 
+    @JvmField
     var thisIsAStringValue = "\\bruh?"
 
     @SectionHeader("bottom")
+    @JvmField
     var thereAreStringsHere: List<String> = ArrayList(listOf("yes", "no"))
 
     @RestartRequired
+    @JvmField
     var broTheresAnEnum = WowValues.FIRST
 
     @Hook
+    @JvmField
     var anEpicColor = Color.BLUE
 
     @WithAlpha
+    @JvmField
     var anEpicColorWithAlpha = Color.GREEN
 
     @ExcludeFromScreen
+    @JvmField
     var noSeeingThis = "yep, never"
 
     @Sync(Option.SyncMode.OVERRIDE_CLIENT)
     @Nest
+    @JvmField
     var nestParty = Nested()
 
     class Nested {
+        @JvmField
         var togglee = false
+
+        @JvmField
         var yesThisIsAlsoNested = true
 
         @Nest
         @Comment("Commented nesting")
+        @JvmField
         var nestingTimeIntensifies = SuperNested()
 
         @Sync(Option.SyncMode.INFORM_SERVER)
+        @JvmField
         var nestedIntegers: List<Int> = ArrayList(listOf(69, 34, 35, 420))
     }
 
 
     class SuperNested {
+        @JvmField
         var wowSoNested: Byte = 0
     }
 

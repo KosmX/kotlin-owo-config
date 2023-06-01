@@ -1,7 +1,7 @@
 plugins {
-    id("fabric-loom") version "1.1-SNAPSHOT"
-    kotlin("jvm") version "1.8.20"
-    id("com.google.devtools.ksp") version "1.8.20-1.0.10"
+    id("fabric-loom") version "1.2-SNAPSHOT"
+    kotlin("jvm") version "1.8.21"
+    id("com.google.devtools.ksp") version "1.8.21-1.0.11"
 }
 
 java.sourceCompatibility = JavaVersion.VERSION_17

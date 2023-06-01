@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "1.8.20"
+    kotlin("jvm") version "1.8.21"
     `maven-publish`
 }
 
@@ -18,11 +18,11 @@ repositories {
 
 dependencies {
 
-    implementation("io.wispforest:owo-lib:0.10.3+1.19.3")
+    implementation("io.wispforest:owo-lib:0.10.6+1.19.4")
     //compileOnly("blue.endless:jankson:1.2.2")
 
     /// KSP deps
-    implementation("com.google.devtools.ksp:symbol-processing-api:1.8.20-1.0.10")
+    implementation("com.google.devtools.ksp:symbol-processing-api:1.8.21-1.0.11")
     implementation("com.squareup:kotlinpoet-ksp:1.12.0")
 }
 
