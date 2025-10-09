@@ -4,35 +4,46 @@ plugins {
     kotlin("jvm")
     `maven-publish`
 }
-base.archivesName = project.extra["archives_base_name"] as String
-version = project.extra["mod_version"] as String
-group = project.extra["maven_group"] as String
+val archivesBaseName = providers.gradleProperty("archives_base_name")
+val modVersion = providers.gradleProperty("mod_version")
+val mavenGroup = providers.gradleProperty("maven_group")
+val owoVersion = providers.gradleProperty("owo_version")
+val kspVersion = providers.gradleProperty("ksp_version")
+val kotlinPoetVersion = providers.gradleProperty("kotlin_poet_version")
+val javaVersion = providers.gradleProperty("java_version")
+base.archivesName = archivesBaseName.get()
+version = modVersion.get()
+group = mavenGroup.get()
 repositories {
     mavenCentral()
     maven ("https://maven.fabricmc.net/") { name = "Fabric" }
     maven("https://maven.wispforest.io")
 }
 dependencies {
-    implementation("io.wispforest", "owo-lib", project.extra["owo_version"] as String)
-    implementation("com.google.devtools.ksp", "symbol-processing-api", project.extra["ksp_version"] as String)
-    implementation("com.squareup", "kotlinpoet-ksp", project.extra["kotlinpoet_version"] as String)
+    implementation("io.wispforest:owo-lib:${owoVersion.get()}")
+    implementation("com.google.devtools.ksp:symbol-processing-api:${kspVersion.get()}")
+    implementation("com.squareup:kotlinpoet-ksp:${kotlinPoetVersion.get()}")
 }
 tasks {
-    val javaVersion = JavaVersion.toVersion((project.extra["java_version"] as String).toInt())
     withType<JavaCompile>().configureEach {
         options.encoding = "UTF-8"
-        sourceCompatibility = javaVersion.toString()
-        targetCompatibility = javaVersion.toString()
-        options.release = javaVersion.toString().toInt()
+        sourceCompatibility = javaVersion.get()
+        targetCompatibility = javaVersion.get()
+        options.release = javaVersion.get().toInt()
     }
     withType<JavaExec>().configureEach { defaultCharacterEncoding = "UTF-8" }
     withType<Javadoc>().configureEach { options.encoding = "UTF-8" }
     withType<Test>().configureEach { defaultCharacterEncoding = "UTF-8" }
-    withType<KotlinCompile>().configureEach { compilerOptions.jvmTarget = JvmTarget.valueOf("JVM_$javaVersion") }
+    withType<KotlinCompile>().configureEach {
+        compilerOptions {
+            extraWarnings = true
+            jvmTarget = JvmTarget.valueOf("JVM_${javaVersion.get()}")
+        }
+    }
     java {
-        toolchain.languageVersion = JavaLanguageVersion.of(javaVersion.toString())
-        sourceCompatibility = javaVersion
-        targetCompatibility = javaVersion
+        toolchain.languageVersion = JavaLanguageVersion.of(javaVersion.get())
+        sourceCompatibility = JavaVersion.toVersion(javaVersion.get().toInt())
+        targetCompatibility = JavaVersion.toVersion(javaVersion.get().toInt())
         withSourcesJar()
     }
 }
